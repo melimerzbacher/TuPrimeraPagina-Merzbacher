@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Listado de Recetas{% endblock %}
+{% block content %}
+<h2>Listado de Recetas</h2>
+<ul>
+  {% for r in recetas %}
+    <li>{{ r.titulo }} ({{ r.chef }})</li>
+  {% endfor %}
+</ul>
+{% endblock %}

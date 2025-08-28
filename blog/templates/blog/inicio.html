@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<h2>Buscar recetas</h2>
+<form method="get">
+  {{ form.q.label_tag }} {{ form.q }}
+  <button type="submit">Buscar</button>
+</form>
+
+<h3>Resultados</h3>
+{% if recetas %}
+  <ul>
+    {% for r in recetas %}
+      <li><strong>{{ r.titulo }}</strong> — {{ r.categoria }} — Chef: {{ r.chef }} — {{ r.creada_en|date:"d/m/Y H:i" }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No se encontraron recetas.</p>
+{% endif %}
+{% endblock %}

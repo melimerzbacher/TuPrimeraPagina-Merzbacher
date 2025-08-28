@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Blog de Recetas{% endblock %}</title>
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1><a href="{% url 'home' %}">🍳 Blog de Recetas</a></h1>
+    <nav>
+      <a href="{% url 'receta_list' %}">Recetas</a> |
+      <a href="{% url 'receta_create' %}">Nueva Receta</a> |
+      <a href="{% url 'chef_create' %}">Nuevo Chef</a> |
+      <a href="{% url 'categoria_create' %}">Nueva Categoría</a>
+    </nav>
+    <hr>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <hr>
+    <small>Django • Patrón MVT</small>
+  </footer>
+</body>
+</html>
