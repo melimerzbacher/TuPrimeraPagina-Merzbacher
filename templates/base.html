@@ -2,29 +2,39 @@
 <!doctype html>
 <html lang="es">
 <head>
+  <h1><a href="{% url 'home' %}">🍳 Blog de Recetas</a></h1>
   <meta charset="utf-8">
-  <title>{% block title %}Blog de Recetas{% endblock %}</title>
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <title>{% block title %}TuPrimeraPagina{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-  <header>
-    <h1><a href="{% url 'home' %}">🍳 Blog de Recetas</a></h1>
-    <nav>
-      <a href="{% url 'receta_list' %}">Recetas</a> |
-      <a href="{% url 'receta_create' %}">Nueva Receta</a> |
-      <a href="{% url 'chef_create' %}">Nuevo Chef</a> |
-      <a href="{% url 'categoria_create' %}">Nueva Categoría</a>
-    </nav>
-    <hr>
-  </header>
+<header>
+  <nav>
+    <a href="{% url 'home' %}">Inicio</a> |
+    <a href="{% url 'about' %}">Acerca de mí</a> |
+    <a href="{% url 'pages_list' %}">Pages</a> |
+    {% if request.user.is_authenticated %}
+      <a href="{% url 'profile_detail' %}">Perfil</a> |
+      <a href="{% url 'messenger_inbox' %}">Mensajes</a> |
+      <a href="{% url 'logout' %}">Salir</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a> |
+      <a href="{% url 'signup' %}">Signup</a>
+    {% endif %}
+  </nav>
+  <hr>
+</header>
 
-  <main>
-    {% block content %}{% endblock %}
-  </main>
+{% if messages %}
+  <ul class="messages">
+    {% for m in messages %}<li class="{{ m.tags }}">{{ m }}</li>{% endfor %}
+  </ul>
+{% endif %}
 
-  <footer>
-    <hr>
-    <small>Django • Patrón MVT</small>
-  </footer>
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer><hr><small>Django — Entrega Final</small></footer>
 </body>
 </html>

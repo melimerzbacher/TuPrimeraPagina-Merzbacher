@@ -16,8 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from pages.views import HomeView, AboutView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("", include("blog.urls"))
+    path("admin/", admin.site.urls),
+
+    path("", HomeView.as_view(), name="home"),
+    path("about/", AboutView.as_view(), name="about"),
+
+    path("pages/", include("pages.urls")),
+    path("accounts/", include("users.urls")),
+    path("messenger/", include("messenger.urls")),
+
+    path("recetas/", include("blog.urls")),
 ]
+    
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    

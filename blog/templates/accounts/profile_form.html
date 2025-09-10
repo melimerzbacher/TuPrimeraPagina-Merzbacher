@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Mi perfil</h2>
+{% if profile.avatar %}<img src="{{ profile.avatar.url }}" style="max-width:160px">{% endif %}
+<p><strong>Usuario:</strong> {{ request.user.username }}</p>
+<p><strong>Email:</strong> {{ request.user.email }}</p>
+<p><strong>Bio:</strong> {{ profile.bio|default:"—" }}</p>
+<p><a href="{% url 'profile_update' %}">Editar perfil</a> · <a href="{% url 'password_change' %}">Cambiar contraseña</a></p>
+{% endblock %}
