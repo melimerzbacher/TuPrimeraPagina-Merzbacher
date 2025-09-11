@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Acerca de mí{% endblock %}
+
+{% block content %}
+
+  <div>
+    <p>
+      ¡Hola! Soy <strong>Melina Merzbacher</strong> y este es mi proyecto final del curso:
+      un <em>Blog de Recetas</em> hecho con <strong>Django</strong> siguiendo el patrón <strong>MVT</strong>.
+    </p>
+
+    <h3>Stack y herramientas</h3>
+    <ul>
+      <li>Python 3.13 · Django 5</li>
+      <li>SQLite · CKEditor (texto enriquecido) · Pillow (imágenes)</li>
+      <li>Templates con herencia · Archivos estáticos y media</li>
+    </ul>
+
+    <h3>¿Qué vas a encontrar?</h3>
+    <ul>
+      <li>Listado de recetas/páginas con buscador y paginación</li>
+      <li>Crear, editar y borrar (solo autor o staff)</li>
+      <li>Detalle con imagen y cuerpo rich text</li>
+      <li>Mensajería interna entre usuarios</li>
+    </ul>
+
+    <h3>Contacto</h3>
+    <ul>
+      <li>Email: <a href="mailto:melimerzbacher@mail.com">melimerzbacher@mail.com</a></li>
+      <li>GitHub: <a href="https://github.com/melimerzbacher" target="_blank" rel="noopener">melimerzbacher</a></li>
+    </ul>
+  </div>
+</section>
+{% endblock %}

@@ -1,11 +1,16 @@
-﻿from django.urls import path
-from .views import SignupView, login_view, logout_view, profile_detail, profile_update, password_change
+﻿from django.urls import path, reverse_lazy
+from django.contrib.auth import views as auth_views
+from .views import profile, ProfileUpdateView
 
 urlpatterns = [
-    path("signup/", SignupView.as_view(), name="signup"),
-    path("login/", login_view, name="login"),
-    path("logout/", logout_view, name="logout"),
-    path("profile/", profile_detail, name="profile_detail"),
-    path("profile/edit/", profile_update, name="profile_update"),
-    path("profile/password/", password_change, name="password_change"),
+    path("profile/", profile, name="profile"),
+    path("profile/edit/", ProfileUpdateView.as_view(), name="profile_edit"),
+    path(
+        "password/change/",
+        auth_views.PasswordChangeView.as_view(
+            template_name="accounts/password_change.html",
+            success_url=reverse_lazy("profile"),
+        ),
+        name="password_change",
+    ),
 ]

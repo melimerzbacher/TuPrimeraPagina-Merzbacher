@@ -18,7 +18,7 @@ class HomeView(TemplateView):
 class AboutView(TemplateView):
     template_name = "pages/about.html"
     
-    from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.db.models import Q
@@ -31,11 +31,11 @@ class HomeView(TemplateView):
 class AboutView(TemplateView):
     template_name = "pages/about.html"
 
-class PagesListView(ListView):
+class PageListView(ListView):
     model = Page
-    template_name = "pages/pages_list.html"
-    context_object_name = "pages"
-    paginate_by = 5
+    template_name = "pages/page_list.html"
+    context_object_name = "object_list"  
+    ordering = ["-created_at"]  
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -47,7 +47,6 @@ class PagesListView(ListView):
 class PageDetailView(DetailView):
     model = Page
     template_name = "pages/page_detail.html"
-    context_object_name = "page"
 
 class OwnerOrStaffMixin(UserPassesTestMixin):
     def test_func(self):
@@ -59,7 +58,7 @@ class PageCreateView(LoginRequiredMixin, CreateView):
     model = Page
     form_class = PageForm
     template_name = "pages/page_form.html"
-    success_url = reverse_lazy("pages_list")
+    success_url = reverse_lazy("pages:page_list")
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -68,9 +67,9 @@ class PageUpdateView(LoginRequiredMixin, OwnerOrStaffMixin, UpdateView):
     model = Page
     form_class = PageForm
     template_name = "pages/page_form.html"
-    success_url = reverse_lazy("pages_list")
+    success_url = reverse_lazy("pages:page_list")
 
 class PageDeleteView(LoginRequiredMixin, OwnerOrStaffMixin, DeleteView):
     model = Page
     template_name = "pages/page_confirm_delete.html"
-    success_url = reverse_lazy("pages_list")
+    success_url = reverse_lazy("pages:page_list")

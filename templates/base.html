@@ -2,39 +2,32 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <h1><a href="{% url 'home' %}">🍳 Blog de Recetas</a></h1>
-  <meta charset="utf-8">
-  <title>{% block title %}TuPrimeraPagina{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <meta charset="utf-8" />
+  <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-<header>
-  <nav>
-    <a href="{% url 'home' %}">Inicio</a> |
-    <a href="{% url 'about' %}">Acerca de mí</a> |
-    <a href="{% url 'pages_list' %}">Pages</a> |
-    {% if request.user.is_authenticated %}
-      <a href="{% url 'profile_detail' %}">Perfil</a> |
-      <a href="{% url 'messenger_inbox' %}">Mensajes</a> |
-      <a href="{% url 'logout' %}">Salir</a>
-    {% else %}
-      <a href="{% url 'login' %}">Login</a> |
-      <a href="{% url 'signup' %}">Signup</a>
-    {% endif %}
-  </nav>
+  <header>
+    <h1><a href="{% url 'home' %}">Blog de Recetas</a></h1>
+    <nav>
+      <a href="{% url 'home' %}">Inicio</a> |
+      <a href="{% url 'pages:about' %}">Acerca de mí</a> |
+      <a href="{% url 'pages:page_list' %}">Pages</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}">Perfil</a> |
+        <a href="{% url 'messenger:inbox' %}">Mensajes</a>
+        <a href="{% url 'logout' %}">Salir</a>
+      {% else %}
+        <a href="{% url 'login' %}">Ingresar</a> |
+        <a href="{% url 'signup' %}">Registrarme</a>
+      {% endif %}
+    </nav>
+  </header>
   <hr>
-</header>
-
-{% if messages %}
-  <ul class="messages">
-    {% for m in messages %}<li class="{{ m.tags }}">{{ m }}</li>{% endfor %}
-  </ul>
-{% endif %}
-
-<main>
-  {% block content %}{% endblock %}
-</main>
-
-<footer><hr><small>Django — Entrega Final</small></footer>
+  {% if messages %}
+    <ul class="messages">{% for m in messages %}<li>{{ m }}</li>{% endfor %}</ul>
+  {% endif %}
+  <main>{% block content %}{% endblock %}</main>
+  <hr>
+  <footer>Entrega Final · Django</footer>
 </body>
 </html>
