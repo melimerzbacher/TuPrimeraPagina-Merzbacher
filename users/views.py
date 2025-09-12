@@ -4,9 +4,10 @@ from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic import UpdateView
-
+from django.views.generic import CreateView
 from .forms import ProfileForm
 from .models import Profile
+from django.contrib.auth.forms import UserCreationForm
 
 @login_required
 def profile(request):
@@ -18,7 +19,6 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
     template_name = "accounts/profile_form.html"
     success_url = reverse_lazy("profile")
 
-    # Editamos ambos: User + Profile en un único formulario
     def get(self, request, *args, **kwargs):
         Profile.objects.get_or_create(user=request.user)
         u_form = UserUpdateForm(instance=request.user)
@@ -34,20 +34,6 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
             return redirect(self.success_url)
         return render(request, self.template_name, {"u_form": u_form, "p_form": p_form})
 
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import UpdateView
-from .models import Profile
-from .forms import ProfileForm
-
-@login_required
-def profile(request):
-    # Garantiza que el perfil exista
-    Profile.objects.get_or_create(user=request.user)
-    return render(request, "accounts/profile.html")
-
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
     form_class = ProfileForm
@@ -55,6 +41,10 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("profile")
 
     def get_object(self):
-        # Edita SIEMPRE el perfil del usuario logueado
         obj, _ = Profile.objects.get_or_create(user=self.request.user)
         return obj
+    
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    template_name = "accounts/signup.html"
+    success_url = reverse_lazy("login") 

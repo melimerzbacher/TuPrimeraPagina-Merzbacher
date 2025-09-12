@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from .models import Receta
 from .forms import ChefForm, CategoriaForm, RecetaForm, SearchForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+
 
 # Create your views here.
 def home(request):
@@ -36,3 +39,5 @@ def categoria_create(request):
         form.save()
         return redirect("home")
     return render(request, "blog/categoria_form.html", {"form": form})
+
+

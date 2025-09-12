@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <h2>Pages</h2>
 
@@ -16,6 +17,6 @@
 {% endfor %}
 
 {% if request.user.is_authenticated %}
-  <p><a href="{% url 'page_create' %}">Crear nueva page</a></p>
+  <p><a href="{% url 'pages:page_create' %}">Crear nueva page</a></p>
 {% endif %}
 {% endblock %}

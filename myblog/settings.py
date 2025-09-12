@@ -69,6 +69,9 @@ TEMPLATES = [
     },
 ]
 
+LOGIN_REDIRECT_URL = "/accounts/profile/"
+LOGOUT_REDIRECT_URL = "/"
+
 WSGI_APPLICATION = 'myblog.wsgi.application'
 
 
@@ -121,3 +124,5 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_RESTRICT_BY_USER = True
+
+LOGOUT_REDIRECT_URL = "home"
